@@ -27,12 +27,12 @@ func (ln *ListNode) InsertAfter(val int) int {
 
 func insert(val int, at *ListNode) int {
 	if at.Next == nil {
-		next := new(ListNode)
+		next := &ListNode{}
 		next.Val = val
 		at.Next = next
 	} else {
 		oldNext := at.Next
-		newNext := new(ListNode)
+		newNext := &ListNode{}
 
 		newNext.Val = val
 		newNext.Next = oldNext

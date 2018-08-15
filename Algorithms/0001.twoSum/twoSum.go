@@ -5,7 +5,7 @@ import (
 )
 
 func twoSum(nums []int, target int) []int {
-	for i, _ := range nums {
+	for i := range nums {
 		for t := i + 1; t < len(nums); t++ {
 			if nums[i]+nums[t] == target {
 				return []int{i, t}
