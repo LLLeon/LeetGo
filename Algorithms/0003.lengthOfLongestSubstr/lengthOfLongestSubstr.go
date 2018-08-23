@@ -17,10 +17,7 @@ func LengthOfLongestSubstr(s string) int {
 		for right := left + 1; right <= n; right++ {
 			if IsAllUnique(s, left, right) {
 				length := right - left
-
-				if length > resp {
-					resp = length
-				}
+				resp = Max(length, resp)
 			}
 		}
 	}
@@ -43,6 +40,14 @@ func IsAllUnique(s string, start, end int) bool {
 	return true
 }
 
+func Max(x, y int) int {
+	if x >= y {
+		return x
+	}
+
+	return y
+}
+
 /*
   滑动窗口算法
 */
@@ -59,11 +64,9 @@ func SlidingWindow(s string) int {
 		if _, ok := unique[s[right]]; !ok {
 			unique[s[right]] = right
 			right++
-			length := right - left
 
-			if length > resp {
-				resp = length
-			}
+			length := right - left
+			resp = Max(length, resp)
 		} else {
 			// 如果索引 right 的值已经存在于 map 中，则删除索引 left 的值并向右滑动 left。
 			delete(unique, s[left])
@@ -74,8 +77,34 @@ func SlidingWindow(s string) int {
 	return resp
 }
 
+/*
+  优化的滑动窗口算法
+*/
+
+func OptimizedSlidingWindow(s string) int {
+	n := len(s)
+	left, right, resp := 0, 0, 0
+	unique := make(map[uint8]int)
+
+	for ; right < n; right++ {
+		if index, ok := unique[s[right]]; ok {
+			// 遇到在 map 中已经存在的字符时，直接移动 left 到该字符的下一位的索引来跳过当前窗口，
+			// 避免了逐个移动 left 索引。
+			left = Max(index, left)
+		}
+
+		length := right - left + 1
+		resp = Max(length, resp)
+
+		// 这里存储的 value 是 right 的下一位索引，
+		unique[s[right]] = right + 1
+	}
+
+	return resp
+}
+
 func main() {
-	s := "hello"
+	s := "ababcabceabc"
 
 	nowStart1 := time.Now()
 	fmt.Println(LengthOfLongestSubstr(s))
@@ -86,4 +115,9 @@ func main() {
 	fmt.Println(SlidingWindow(s))
 	nowEnd2 := time.Now()
 	fmt.Println(nowEnd2.Sub(nowStart2))
+
+	nowStart3 := time.Now()
+	fmt.Println(OptimizedSlidingWindow(s))
+	nowEnd3 := time.Now()
+	fmt.Println(nowEnd3.Sub(nowStart3))
 }
