@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 func twoSum(nums []int, target int) []int {
@@ -40,8 +41,7 @@ func twoSumOnePass(nums []int, target int) []int {
 	for i, v := range nums {
 		complement := target - nums[i]
 
-		// 进行匹配时，第 i 个元素还没有放入 map 中，
-		// 无需限制 i != index
+		// 因为只需遍历一遍 nums，不用限制 i != index
 		if index, ok := m[complement]; ok {
 
 			// 因为刚开始遍历时还没有元素放入 map，是后面的 nums[i]
@@ -59,9 +59,20 @@ func main() {
 	nums := []int{1, 4, 2, 15}
 	target := 6
 
+	nowStart1 := time.Now()
 	r1 := twoSum(nums, target)
+	nowEnd1 := time.Now()
+	fmt.Println("r1 excution:", nowEnd1.Sub(nowStart1))
+
+	nowStart2 := time.Now()
 	r2 := twoSumTwoPass(nums, target)
+	nowEnd2 := time.Now()
+	fmt.Println("r2 excution:", nowEnd2.Sub(nowStart2))
+
+	nowStart3 := time.Now()
 	r3 := twoSumOnePass(nums, target)
+	nowEnd3 := time.Now()
+	fmt.Println("r3 excution:", nowEnd3.Sub(nowStart3))
 
 	fmt.Println(r1)
 	fmt.Println(r2)
