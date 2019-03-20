@@ -27,8 +27,8 @@ func twoSumTwoPass(nums []int, target int) []int {
 	for i := 0; i < len(nums); i++ {
 		complement := target - nums[i]
 
-		if v, ok := m[complement]; ok && v != i {
-			return []int{i, v}
+		if index, ok := m[complement]; ok && index != i {
+			return []int{i, index}
 		}
 	}
 

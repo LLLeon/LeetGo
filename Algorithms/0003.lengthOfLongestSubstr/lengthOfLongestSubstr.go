@@ -96,7 +96,7 @@ func OptimizedSlidingWindow(s string) int {
 		length := right - left + 1
 		resp = Max(length, resp)
 
-		// 这里存储的 value 是 right 的下一位索引，
+		// 这里存储的 value 是 right 的下一位索引
 		unique[s[right]] = right + 1
 	}
 
