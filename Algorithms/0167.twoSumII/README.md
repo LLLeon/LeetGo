@@ -1,4 +1,4 @@
-0125.Reverse String
+0125.Two Sum II - Input array is sorted
 
 ##  描述
 Given an array of integers that is already sorted in ascending order, find two numbers such that they add up to a specific target number.
