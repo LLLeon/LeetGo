@@ -22,7 +22,7 @@ func FindLongestWord(s string, d []string) string {
 		}
 	}
 
-	// 说明 d 中所以字符串都没有包含在 s 中
+	// 说明 d 中所有字符串都没有包含在 s 中
 	if maxIndex == -1 {
 		return ""
 	}
