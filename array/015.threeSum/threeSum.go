@@ -62,6 +62,7 @@ func isSame(s1, s2 []int) bool {
 	return true
 }
 
+// 时间复杂度 O(N2), 空间复杂度 O(N).
 func ThreeSumI(nums []int) [][]int {
 	res := [][]int{}
 	counter := make(map[int]int)
@@ -85,7 +86,7 @@ func ThreeSumI(nums []int) [][]int {
 		}
 
 		for j := i + 1; j < len(uniqNums); j++ {
-			// 统计两种特殊情况, 即两个相同的数字加上另一个数字的和是 0,
+			// 统计两种特殊情况, 即两个相同的数字加上另一个数字的和是 0
 			if uniqNums[i]*2+uniqNums[j] == 0 && counter[uniqNums[i]] > 1 {
 				res = append(res, []int{uniqNums[i], uniqNums[i], uniqNums[j]})
 			}
