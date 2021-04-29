@@ -60,3 +60,41 @@ func traverse(right *ListNode) bool {
 
 	return res
 }
+
+// 使用快慢指针实现.
+func IsPalindromeIII(head *ListNode) bool {
+	if head == nil || head.Next == nil {
+		return true
+	}
+
+	pre := head
+	var prepre *ListNode
+
+	slow := head
+	fast := head
+
+	// 慢指针用来反转链表的前半部分
+	for fast != nil && fast.Next != nil {
+		pre = slow
+		slow = slow.Next
+		fast = fast.Next.Next
+		pre.Next = prepre
+		prepre = pre
+	}
+
+	if fast != nil {
+		slow = slow.Next
+	}
+
+	// 继续移动慢指针, 比较被反转的前半部分和正常的后半部分
+	for pre != nil && slow != nil {
+		if pre.Val != slow.Val {
+			return false
+		}
+
+		pre = pre.Next
+		slow = slow.Next
+	}
+
+	return true
+}
