@@ -28,6 +28,7 @@ func ConstructMaximumBinaryTree(nums []int) *TreeNode {
 }
 
 func findMaxItem(nums []int) int {
+	// 注意这里, 由于题目要求数组中的数字是 [0, 1000] 中的值, 所以可以设置为 0
 	max := 0
 	for _, v := range nums {
 		if v > max {
