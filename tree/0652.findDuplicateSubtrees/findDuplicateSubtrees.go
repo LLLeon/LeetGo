@@ -1,6 +1,8 @@
 package main
 
-import "strconv"
+import (
+	"strconv"
+)
 
 type TreeNode struct {
 	Val   int
@@ -8,31 +10,29 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-var (
-	res        = make([]*TreeNode, 0)
-	subTreeMap = make(map[string]int)
-)
-
 func FindDuplicateSubtrees(root *TreeNode) []*TreeNode {
-	traverse(root)
+	counter := make(map[string]int)
+	res := make([]*TreeNode, 0)
+
+	traverse(root, counter, &res)
 	return res
 }
 
-func traverse(root *TreeNode) string {
+func traverse(root *TreeNode, counter map[string]int, res *[]*TreeNode) string {
 	if root == nil {
 		return "#"
 	}
 
-	left := traverse(root.Left)
-	right := traverse(root.Right)
+	// 构造该 root 节点的子树
+	left := traverse(root.Left, counter, res)
+	right := traverse(root.Right, counter, res)
+	subTree := strconv.Itoa(root.Val) + "," + left + "," + right
 
-	subTree := left + "," + right + "," + strconv.Itoa(root.Val)
-
-	freq := subTreeMap[subTree]
-	if freq == 1 {
-		res = append(res, root)
+	// 记录子树出现的次数, 如果有相同的就将其 root 节点计入结果
+	counter[subTree]++
+	if counter[subTree] == 2 {
+		*res = append(*res, root)
 	}
-	subTreeMap[subTree] = freq + 1
 
 	return subTree
 }
