@@ -23,3 +23,18 @@ func SearchBST(root *TreeNode, val int) *TreeNode {
 
 	return nil
 }
+
+// 时间复杂度同上.
+// 空间复杂度 O(1).
+func SearchBSTII(root *TreeNode, val int) *TreeNode {
+	for root != nil && root.Val != val {
+		if val < root.Val {
+			root = root.Left
+		} else {
+			root = root.Right
+		}
+	}
+
+	// 此时要么找到目标节点, 要么为 nil.
+	return root
+}
