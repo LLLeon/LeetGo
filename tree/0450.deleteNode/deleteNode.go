@@ -25,7 +25,8 @@ func DeleteNode(root *TreeNode, key int) *TreeNode {
 		if root.Right == nil {
 			return root.Left
 		}
-		// 4) root 的左右节点都不为 nil, 用其左子树中的最大节点或右子树中的最小节点替换自己的位置
+		// 4) root 的左右节点都不为 nil, 用其左子树中的最大节点 (Predecessor: 前驱节点)
+		// 或右子树中的最小节点 (Successor: 后继节点) 替换自己的位置
 		if root.Left != nil && root.Right != nil {
 			maxNode := getMaxNode(root.Left)
 			root.Val = maxNode.Val
