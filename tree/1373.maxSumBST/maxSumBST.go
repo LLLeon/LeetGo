@@ -22,6 +22,8 @@ func traverse(root *TreeNode) {
 	}
 
 	var (
+		leftMax  int
+		rightMin int
 		leftSum  int
 		rightSum int
 		rootSum  int
@@ -32,8 +34,10 @@ func traverse(root *TreeNode) {
 		goto next
 	}
 
-	// 判断当前节点是不是 BST
-	if !isValidBST(root) {
+	// 判断以当前节点为 root 的二叉树是不是 BST
+	leftMax = findMaxVal(root.Left)
+	rightMin = findMinVal(root.Right)
+	if root.Val <= leftMax || root.Val >= rightMin {
 		goto next
 	}
 
