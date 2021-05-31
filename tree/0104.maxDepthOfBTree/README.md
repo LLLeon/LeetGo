@@ -1,18 +1,18 @@
-0104. Maximum Depth of Binary Tree
+# 0104. 二叉树的最大深度
 
-Given a binary tree, find its maximum depth.
+## 描述
 
-The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+给定一个二叉树，找出其最大深度。
 
-Note: A leaf is a node with no children.
+二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
 
-Example:
+说明: 叶子节点是指没有子节点的节点。
 
-Given binary tree [3,9,20,null,null,15,7],
+示例：
+给定二叉树 [3,9,20,null,null,15,7]，返回它的最大深度 3 。
 
-    3
-   / \
-  9  20
-    /  \
-   15   7
-return its depth = 3.
+## 思路
+
+首先要明白二叉树深度的定义，根据定义来计算树的深度。
+
+可以计算左子树和右子树的深度，选出其中较大者，再加上 1（即根节点到左/右节点的深度）。
