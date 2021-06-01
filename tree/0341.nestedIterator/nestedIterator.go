@@ -22,7 +22,7 @@ func (ni NestedInteger) GetList() []*NestedInteger {
 	return nil
 }
 
-// ----------------------------------- 以下需要实现 -----------------------------------------------
+// -------------------------------------------- 递归实现 --------------------------------------------
 
 type NestedIterator struct {
 	vals []int
@@ -56,4 +56,46 @@ func (ni *NestedIterator) Next() int {
 
 func (ni *NestedIterator) HasNext() bool {
 	return len(ni.vals) > 0
+}
+
+// -------------------------------------------- 栈实现 --------------------------------------------
+type NestedIteratorII struct {
+	// 栈里面存的是队列
+	stack [][]*NestedInteger
+}
+
+func ConstructorII(nestedList []*NestedInteger) *NestedIteratorII {
+	return &NestedIteratorII{[][]*NestedInteger{nestedList}}
+}
+
+func (ni *NestedIteratorII) HasNext() bool {
+	for len(ni.stack) > 0 {
+		// 查看栈顶的队列, 如果队列为空则将其出栈
+		queue := ni.stack[len(ni.stack)-1]
+		if len(queue) == 0 {
+			ni.stack = ni.stack[:len(ni.stack)-1]
+			continue
+		}
+
+		// 判断队头元素是不是整数
+		nest := queue[0]
+		if nest.IsInteger() {
+			return true
+		}
+
+		// 队头元素是列表, 将其入栈
+		ni.stack[len(ni.stack)-1] = queue[1:]
+		ni.stack = append(ni.stack, nest.GetList())
+	}
+
+	return false
+}
+
+func (ni *NestedIteratorII) Next() int {
+	// 直接返回栈顶列表的队首元素, 将其弹出队首并返回
+	quque := ni.stack[len(ni.stack)-1]
+	val := quque[0].GetInteger()
+	ni.stack[len(ni.stack)-1] = quque[1:]
+
+	return val
 }
