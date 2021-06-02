@@ -87,7 +87,7 @@ func (ni *NestedIteratorII) HasNext() bool {
 			return true
 		}
 
-		// 队头元素是列表, 将其弹出队列并入栈
+		// 队头元素是列表, 将其弹出队列, 再将队列入栈, 下次循环会处理栈顶队列
 		ni.stack[len(ni.stack)-1] = queue[1:]
 		ni.stack = append(ni.stack, nest.GetList())
 	}
