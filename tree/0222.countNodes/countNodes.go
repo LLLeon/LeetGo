@@ -39,3 +39,13 @@ func CountNodes(root *TreeNode) int {
 		return node == nil
 	}) - 1
 }
+
+func CountNodesII(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+
+	left := CountNodesII(root.Left)
+	right := CountNodesII(root.Right)
+	return left + right + 1
+}
