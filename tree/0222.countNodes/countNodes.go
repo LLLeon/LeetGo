@@ -1,6 +1,9 @@
 package main
 
-import "sort"
+import (
+	"math"
+	"sort"
+)
 
 type TreeNode struct {
 	Val   int
@@ -48,4 +51,29 @@ func CountNodesII(root *TreeNode) int {
 	left := CountNodesII(root.Left)
 	right := CountNodesII(root.Right)
 	return left + right + 1
+}
+
+func CountNodesIII(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+
+	left, right := root, root
+	leftHeight, rightHeight := 0, 0
+
+	for left != nil {
+		left = left.Left
+		leftHeight++
+	}
+
+	for right != nil {
+		right = right.Right
+		rightHeight++
+	}
+
+	if leftHeight == rightHeight {
+		return int(math.Pow(float64(2), float64(leftHeight)) - 1)
+	}
+
+	return 1 + CountNodesIII(root.Left) + CountNodesIII(root.Right)
 }
