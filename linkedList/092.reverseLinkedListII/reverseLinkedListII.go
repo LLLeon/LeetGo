@@ -1,6 +1,6 @@
 package main
 
-var sucessor *ListNode
+var successor *ListNode
 
 type ListNode struct {
 	Val  int
@@ -25,7 +25,7 @@ func reverseN(head *ListNode, n int) *ListNode {
 	// 递归到第 n 个节点, 返回其自身
 	if n == 1 {
 		// 记录第 n+1 个节点
-		sucessor = head.Next
+		successor = head.Next
 		return head
 	}
 
@@ -35,7 +35,7 @@ func reverseN(head *ListNode, n int) *ListNode {
 	// 反转节点指向
 	head.Next.Next = head
 	// 连接前面记录的后继节点
-	head.Next = sucessor
+	head.Next = successor
 
 	return last
 }
