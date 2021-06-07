@@ -59,8 +59,8 @@ func ReverseBetweenII(head *ListNode, left, right int) *ListNode {
 	for i := 0; i < right-left; i++ {
 		next := curr.Next     // next 表示 curr 的下一个节点
 		curr.Next = next.Next // 把 curr 的下一个节点指向 next 的下一个节点
-		next.Next = pre.Next  // 把 next 的下一个节点指向 pre 的下一个节点
-		pre.Next = next       // 把 pre 的下一个节点指向 next
+		next.Next = pre.Next  // 把 next 的下一个节点指向 pre 的下一个节点, 将 next 插到待反转区域头部
+		pre.Next = next       // 把 pre 的下一个节点指向 next, 连接无需反转区域的最后一个节点与反转后的第一个节点
 	}
 
 	return dummyNode.Next
