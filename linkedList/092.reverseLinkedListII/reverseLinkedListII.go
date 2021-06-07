@@ -39,3 +39,29 @@ func reverseN(head *ListNode, n int) *ListNode {
 
 	return last
 }
+
+func ReverseBetweenII(head *ListNode, left, right int) *ListNode {
+	if head == nil || left > right {
+		return nil
+	}
+
+	dummyNode := &ListNode{Val: -1}
+	dummyNode.Next = head
+
+	// 找到待反转区域中第一个节点的前一个节点
+	pre := dummyNode
+	for i := 0; i < left-1; i++ {
+		pre = pre.Next
+	}
+
+	// curr 表示待反转区域的第一个节点
+	curr := pre.Next
+	for i := 0; i < right-left; i++ {
+		next := curr.Next     // next 表示 curr 的下一个节点
+		curr.Next = next.Next // 把 curr 的下一个节点指向 next 的下一个节点
+		next.Next = pre.Next  // 把 next 的下一个节点指向 pre 的下一个节点
+		pre.Next = next       // 把 pre 的下一个节点指向 next
+	}
+
+	return dummyNode.Next
+}
