@@ -35,3 +35,29 @@ func NextGreaterElement(nums1, nums2 []int) []int {
 
 	return res
 }
+
+func NextGreaterElementII(nums1, nums2 []int) []int {
+	len1 := len(nums1)
+	len2 := len(nums2)
+	res := []int{}
+	stack := []int{}
+	m := make(map[int]int)
+
+	for i := 0; i < len2; i++ {
+		for len(stack) != 0 && nums2[i] > stack[len(stack)-1] {
+			m[stack[len(stack)-1]] = nums2[i]
+			stack = stack[:len(stack)-1]
+		}
+		stack = append(stack, nums2[i])
+	}
+
+	for i := 0; i < len1; i++ {
+		if v, ok := m[nums1[i]]; !ok {
+			res = append(res, -1)
+		} else {
+			res = append(res, v)
+		}
+	}
+
+	return res
+}
