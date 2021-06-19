@@ -1,5 +1,6 @@
 package main
 
+// 时间复杂度 O(N2), 空间复杂度 O(N).
 func RunningSum(nums []int) []int {
 	if len(nums) == 0 {
 		return []int{}
@@ -16,6 +17,21 @@ func RunningSum(nums []int) []int {
 		}
 
 		res = append(res, sum)
+	}
+
+	return res
+}
+
+// 时间复杂度 O(N), 空间复杂度 O(N).
+func RunningSumII(nums []int) []int {
+	if len(nums) == 0 {
+		return []int{}
+	}
+
+	res := []int{nums[0]}
+
+	for i := 1; i < len(nums); i++ {
+		res = append(res, res[i-1]+nums[i])
 	}
 
 	return res
