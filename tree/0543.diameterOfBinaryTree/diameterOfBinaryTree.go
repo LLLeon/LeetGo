@@ -23,8 +23,8 @@ func recursive(node *TreeNode) int {
 	left := recursive(node.Left)
 	right := recursive(node.Right)
 
-	res = max(res, left+right+1)
-	return max(left, right) + 1
+	res = max(res, left+right+1) // 更新 res
+	return max(left, right) + 1  // 以当前节点为根节点的最大深度, 这个返回值会作为二叉树直径的一部分(即 left 或 right 的值)
 }
 
 func max(a, b int) int {
